@@ -2,58 +2,32 @@
   "name": "flashcards",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@babel/core": "^7.23.3",
-    "@gehrmanng/react-i18n": "^0.3.1",
-    "@tanstack/react-query": "^5.8.3",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^14.1.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.60",
-    "@types/react": "^18.2.36",
-    "@types/react-dom": "^18.2.14",
-    "i18next": "^23.7.6",
-    "kill-port-process": "^3.2.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-i18next": "^13.5.0",
-    "react-query": "^3.39.3",
-    "react-scripts": "^5.0.1",
-    "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
-  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "axios": "^1.6.7",
+    "next": "^14.1.0",
+    "next-auth": "^4.24.6",
+    "react": "^18.2.0",
+    "react-dom": "^18",
+    "react-query": "^3.39.3",
+    "react-router-dom": "^6.22.1",
+    "react-toastify": "^10.0.4"
   },
   "devDependencies": {
-    "@types/babel__core": "^7.20.4",
-    "@typescript-eslint/eslint-plugin": "^6.10.0",
-    "@typescript-eslint/parser": "^6.10.0",
-    "eslint": "^8.53.0",
-    "eslint-plugin-react": "^7.33.2",
-    "prettier": "3.0.3",
-    "tailwindcss": "^3.3.5"
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@types/react-toastify": "^4.1.0",
+    "autoprefixer": "^10.0.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.1.0",
+    "postcss": "^8",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5"
   }
 }
