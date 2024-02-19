@@ -1,3 +1,4 @@
+"use client"; // This is a client component
 import React, { useState } from "react";
 
 const Flashcard: React.FC = () => {
@@ -7,12 +8,14 @@ const Flashcard: React.FC = () => {
         setFlipped(!isFlipped);
     };
 
-
     return (
         <div className="flex items-center justify-center h-screen">
-            <div className={`card w-60 h-80 cursor-pointer  ${isFlipped ? "flipped" : ""}`}>
+            <div
+                className={`card w-60 h-80 cursor-pointer  ${
+                    isFlipped ? "flipped" : ""
+                }`}
+            >
                 <div className="front absolute w-full h-full flex items-center justify-center shadow-md">
-
                     <p>Front Side</p>
                 </div>
                 <div className="back absolute w-full h-full  flex items-center justify-center shadow-md">
