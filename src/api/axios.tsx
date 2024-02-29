@@ -1,4 +1,3 @@
-// src/api/axios.tsx
 import axios, { AxiosInstance } from 'axios';
 
 interface AuthResponse {
@@ -12,17 +11,17 @@ interface ErrorResponse {
 
 const instance: AxiosInstance = axios.create({
   baseURL: 'http://localhost:3000', // Backend server URL
-  withCredentials: true, // Enable cookies for cross-origin requests
+  withCredentials: true, // To Enable cookies for cross-origin requests
 });
 
 const authService = {
   login: async (email: string, password: string): Promise<string> => {
     try {
       const response = await instance.post<AuthResponse>('/auth/login', { email, password });
-      const token = response.data.token; // Update this line to match the correct property name
-      // Set the Authorization header for subsequent requests
+      const token = response.data.token; // Property name
+      // Setting the Authorization header for subsequent requests
       instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      // Store the token in local storage
+      // To Store the token in local storage
       localStorage.setItem('token', token);
       console.log('Login successful! Token:', token);
       return token;
@@ -35,10 +34,10 @@ const authService = {
   signup: async (email: string, password: string): Promise<string> => {
     try {
       const response = await instance.post<AuthResponse>('/auth/signup', { email, password });
-      const token = response.data.token; // Update this line to match the correct property name
-      // Set the Authorization header for subsequent requests
+      const token = response.data.token; // Property name
+      // Setting the Authorization header for subsequent requests
       instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      // Store the token in local storage
+      // To Store the token in local storage
       localStorage.setItem('token', token);
       console.log('Signup successful! Token:', token);
       return token;
@@ -65,7 +64,7 @@ const authService = {
       }
 
       instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      await instance.get('/auth/check-auth'); // Replace with the actual endpoint to check authentication
+      await instance.get('/auth/check-auth'); // Endpoint to check authentication
 
     } catch (error: any) {
 
