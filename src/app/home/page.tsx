@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { Flashcard } from '@/components/atoms';
 import { Navbar } from '@/components/molecules';
 import authService from '@/api/axios';
+import {Sidebar} from '@/components/molecules';
 
 const HomePage: React.FC = () => {
   const router = useRouter();
@@ -11,8 +12,8 @@ const HomePage: React.FC = () => {
   useEffect(() => {
     const checkAuthentication = async () => {
       try {
-        // Check if the user is authenticated by calling your backend API
-        await authService.checkAuthentication(); // You need to implement this function in your authService
+
+        await authService.checkAuthentication();
 
         // If authenticated, do nothing
       } catch (error) {
@@ -24,17 +25,25 @@ const HomePage: React.FC = () => {
     checkAuthentication();
   }, []);
 
-  return (
-    <div>
-      <Navbar />
-      <div className="flex flex-col items-center justify-center">
-        <h1 className="text-4xl font-bold mt-3 cursor-pointer hover:text-blue-500">
-          Flashcards
-        </h1>
+ return (
+    <div className="flex">
+
+      <Sidebar />
+
+      <div className="flex flex-col flex-1">
+
+        <Navbar />
+
+        <div className="flex flex-col items-center justify-center p-8">
+          <h1 className="text-4xl font-bold mt-3 cursor-pointer hover:text-blue-500">
+            Flashcards
+          </h1>
+          <Flashcard />
+        </div>
       </div>
-      <Flashcard />
     </div>
   );
 };
+
 
 export default HomePage;
