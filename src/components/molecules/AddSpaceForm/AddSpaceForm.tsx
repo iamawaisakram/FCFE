@@ -1,11 +1,17 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-interface AddSpaceFormProps {
-  onClose: () => void;
+interface Space {
+  id: number;
+  name: string;
 }
 
-const AddSpaceForm: React.FC<AddSpaceFormProps> = ({ onClose }) => {
+interface AddSpaceFormProps {
+  onClose: () => void;
+  onAddSpace: (newSpace: Space) => void;
+}
+
+const AddSpaceForm: React.FC<AddSpaceFormProps> = ({ onClose, onAddSpace }) => {
   const [spaceName, setSpaceName] = useState('');
 
   const handleAddSpace = async () => {
@@ -19,7 +25,7 @@ const AddSpaceForm: React.FC<AddSpaceFormProps> = ({ onClose }) => {
       }
 
       //To Hit the API endpoint to create a new space with authorization header
-      const response = await axios.post(
+      const response = await axios.post<Space>(
         'http://localhost:3000/spaces',
         { name: spaceName },
         {
@@ -33,6 +39,9 @@ const AddSpaceForm: React.FC<AddSpaceFormProps> = ({ onClose }) => {
       onClose();
 
       console.log('Space created:', response.data);
+
+      //To call the onAddSpace callback to update the state in the Sidebar
+       onAddSpace(response.data);
 
     } catch (error) {
       console.error('Error creating space:', error);
