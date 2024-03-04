@@ -77,9 +77,9 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
         {/* Displaying fetched spaces */}
         {spaces.map((space) => (
           <li key={space.id}>
-            <Link href={`/spaces/${space.id}`} className="text-black hover:text-blue-500">
-              {space.name}
-            </Link>
+            <Link href={`/space?spaceId=${space.id}`} className="text-black hover:text-blue-500">
+             {space.name}
+           </Link>
           </li>
         ))}
       </ul>
