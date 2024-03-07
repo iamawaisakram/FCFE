@@ -1,55 +1,71 @@
-import { useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+interface Deck {
+  id: number;
+  name: string;
+}
 
 interface DeckFormProps {
   spaceId: number;
 }
 
 const DeckForm: React.FC<DeckFormProps> = ({ spaceId }) => {
-  const [deckName, setDeckName] = useState('');
+  const [deckName, setDeckName] = useState<string>('');
+  const [decks, setDecks] = useState<Deck[]>([]);
+
+  const fetchDecks = async () => {
+    try {
+      const authToken = localStorage.getItem('token');
+
+      if (!authToken) {
+        console.error('User not authenticated');
+        return;
+      }
+
+      const response = await axios.get<Deck[]>(`http://localhost:3000/decks/space/${spaceId}`, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+
+      setDecks(response.data);
+    } catch (error) {
+      console.error('Error fetching decks:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchDecks();
+  }, [spaceId]);
 
   const handleDeckCreation = async () => {
     try {
       const authToken = localStorage.getItem('token');
 
       if (!authToken) {
-        // Displaying a toast for unauthenticated scenario
-        toast.error('User not authenticated');
+        console.error('User not authenticated');
         return;
       }
 
-      if (!deckName) {
-        // Displaying a toast for empty input field
-        toast.error('Deck name cannot be empty');
-        return;
-      }
-
-    //   console.log('Space ID:', spaceId);
-
-      const response = await fetch('http://localhost:3000/decks', {
-        method: 'POST',
+      const response = await axios.post(`http://localhost:3000/decks`, {
+        name: deckName,
+        space: { id: spaceId },
+      }, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${authToken}`,
         },
-        body: JSON.stringify({
-          name: deckName,
-          space: { id: spaceId },
-        }),
       });
 
-      if (response.ok) {
-        // Deck created successfully
+      if (response.data) {
         setDeckName('');
-        toast.success('Deck created successfully');
+        fetchDecks();
       } else {
-        // Handling error scenarios
-        toast.error(`Error creating deck: ${response.statusText}`);
+        console.error('Error creating deck:', response.statusText);
       }
     } catch (error) {
-      // Displaying a toast for general errors
-      toast.error(`Error creating deck`);
+      console.error('Error creating deck:', error);
     }
   };
 
@@ -63,8 +79,12 @@ const DeckForm: React.FC<DeckFormProps> = ({ spaceId }) => {
       />
       <button onClick={handleDeckCreation}>Create Deck</button>
 
-      {/* ToastContainer to display error messages */}
-      <ToastContainer />
+      <h2>Decks:</h2>
+      <ul>
+        {decks.map((deck) => (
+          <li key={deck.id}>{deck.name}</li>
+        ))}
+      </ul>
     </div>
   );
 };
