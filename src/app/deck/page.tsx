@@ -2,7 +2,7 @@
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import CardForm from '@/components/molecules/CardForm/CardForm';
 
 interface Deck {
   id: number;
@@ -53,7 +53,7 @@ const searchParams = useSearchParams();
   return (
     <div>
       <h1>{deck.name}</h1>
-
+      <CardForm deckId={deck.id} />
 
     </div>
   );
