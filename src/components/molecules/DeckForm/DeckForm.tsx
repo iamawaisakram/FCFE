@@ -84,7 +84,7 @@ const DeckForm: React.FC<DeckFormProps> = ({ spaceId }) => {
       <ul>
         {decks.map((deck) => (
           <li key={deck.id}>
-            <Link href={`/deck?deckId=${deck.id}`} className="text-black hover:text-blue-500">
+            <Link href={`/deck?deckId=${deck.id}&spaceId=${spaceId}`} className="text-black hover:text-blue-500">
               {deck.name}
             </Link>
           </li>

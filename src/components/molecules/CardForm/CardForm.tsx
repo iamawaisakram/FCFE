@@ -20,9 +20,10 @@ interface Clue {
 
 interface CardFormProps {
   deckId: number;
+  spaceId: number;
 }
 
-const CardForm: React.FC<CardFormProps> = ({ deckId }) => {
+const CardForm: React.FC<CardFormProps> = ({ deckId, spaceId }) => {
   const [cardName, setCardName] = useState<string>('');
   const [answerInput, setAnswerInput] = useState<string>('');
   const [clueInput, setClueInput] = useState<string>('');
@@ -60,10 +61,13 @@ const CardForm: React.FC<CardFormProps> = ({ deckId }) => {
       return;
     }
 
+     console.log('Creating card with spaceId:', spaceId);
+
     const response = await axios.post(`http://localhost:3000/cards/${deckId}`, {
       name: cardName,
-      answers: [{ value: answerInput }], // Use answerInput state variable
-      clues: [{ value: clueInput }], // Use clueInput state variable
+     space: { id: spaceId },
+      answers: [{ value: answerInput }], // Using answerInput state variable
+      clues: [{ value: clueInput }], // Using clueInput state variable
     }, {
       headers: {
         'Content-Type': 'application/json',
@@ -113,10 +117,10 @@ const CardForm: React.FC<CardFormProps> = ({ deckId }) => {
           <li key={card.id}>
             {card.name}
             <ul>
-  {card.answers && card.answers.map((answer) => (
-    <li key={answer.id}>{answer.value}</li>
-  ))}
-</ul>
+              {card.answers && card.answers.map((answer) => (
+                <li key={answer.id}>{answer.value}</li>
+              ))}
+            </ul>
             <ul>
               {card.clues && card.clues.map((clue) => (
                 <li key={clue.id}>{clue.value}</li>
