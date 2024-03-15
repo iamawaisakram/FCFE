@@ -51,7 +51,9 @@ const SpacePage = () => {
 
   return (
     <div>
+    <div className='text-center'>
       <h1>{space.name}</h1>
+      </div>
       <DeckForm spaceId={space.id} />
       {/* Add other content related to the space page */}
     </div>

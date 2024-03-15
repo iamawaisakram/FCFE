@@ -71,19 +71,22 @@ const DeckForm: React.FC<DeckFormProps> = ({ spaceId }) => {
   };
 
   return (
-    <div>
-      <label>Deck Name:</label>
+    <div className="container mx-auto px-4 py-8">
+      <label className="block mb-2">Deck Name:</label>
       <input
         type="text"
         value={deckName}
         onChange={(e) => setDeckName(e.target.value)}
+        className="border border-gray-300 rounded px-4 py-2 mb-4 w-full"
       />
-      <button onClick={handleDeckCreation}>Create Deck</button>
+      <button onClick={handleDeckCreation} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+        Create Deck
+      </button>
 
-      <h2>Decks:</h2>
-      <ul>
+      <h2 className="mt-8 mb-4 text-lg font-bold">Decks:</h2>
+      <ul >
         {decks.map((deck) => (
-          <li key={deck.id}>
+          <li key={deck.id} className="mb-2">
             <Link href={`/deck?deckId=${deck.id}&spaceId=${spaceId}`} className="text-black hover:text-blue-500">
               {deck.name}
             </Link>
