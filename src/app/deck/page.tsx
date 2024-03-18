@@ -55,7 +55,7 @@ const searchParams = useSearchParams();
   return (
     <div>
     <div className="text-center">
-  <h1>{deck.name}</h1>
+  <h1 className="text-3xl font-bold">{deck.name}</h1>
   </div>
   <CardForm deckId={deck.id} spaceId={parseInt(spaceId as string)}/>
 

@@ -3,6 +3,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import authService from '@/api/axios';
+import Image from 'next/image';
 
 
 const Navbar: React.FC = () => {
@@ -59,10 +60,11 @@ const Navbar: React.FC = () => {
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex flex-shrink-0 items-center">
-              <img
+              <Image
                 className="h-10 w-auto"
                 src="/f3.png"
                 alt="Your Company"
+                width="64" height="64"
               />
             </div>
             <div className="hidden sm:ml-6 sm:block">
