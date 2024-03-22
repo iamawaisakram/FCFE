@@ -71,8 +71,8 @@ const CardForm: React.FC<CardFormProps> = ({ deckId, spaceId }) => {
                 {
                     name: cardName,
                     space: { id: spaceId },
-                    answers: [{ value: answerInput }], // Using answerInput state variable
-                    clues: [{ value: clueInput }], // Using clueInput state variable
+                    answers: [{ value: answerInput }],
+                    clues: [{ value: clueInput }],
                 },
                 {
                     headers: {
@@ -96,42 +96,58 @@ const CardForm: React.FC<CardFormProps> = ({ deckId, spaceId }) => {
     };
 
     return (
-        <div>
-            <label>Card Name:</label>
-            <input
-                type="text"
-                value={cardName}
-                onChange={(e) => setCardName(e.target.value)}
-            />
-            <label>Answer:</label>
-            <input
-                type="text"
-                value={answerInput}
-                onChange={(e) => setAnswerInput(e.target.value)}
-            />
-            <label>Clue:</label>
-            <input
-                type="text"
-                value={clueInput}
-                onChange={(e) => setClueInput(e.target.value)}
-            />
-            <button onClick={handleCardCreation}>Create Card</button>
+        <div className="container mx-auto px-4 py-8">
+            <div className="mb-4">
+                <label className="block mb-2">Card Name:</label>
+                <input
+                    type="text"
+                    value={cardName}
+                    onChange={(e) => setCardName(e.target.value)}
+                    className="border border-gray-300 rounded px-4 py-2 w-full"
+                />
+            </div>
+            <div className="mb-4">
+                <label className="block mb-2">Answer:</label>
+                <input
+                    type="text"
+                    value={answerInput}
+                    onChange={(e) => setAnswerInput(e.target.value)}
+                    className="border border-gray-300 rounded px-4 py-2 w-full"
+                />
+            </div>
+            <div className="mb-4">
+                <label className="block mb-2">Clue:</label>
+                <input
+                    type="text"
+                    value={clueInput}
+                    onChange={(e) => setClueInput(e.target.value)}
+                    className="border border-gray-300 rounded px-4 py-2 w-full"
+                />
+            </div>
+            <button
+                onClick={handleCardCreation}
+                className="bg-blue-500 text-white px-4 py-2 rounded"
+            >
+                Create Card
+            </button>
 
-            <h2>Cards:</h2>
+            <h2 className="mt-8 mb-4 text-lg font-bold">Cards:</h2>
             <ul>
                 {cards.map((card) => (
-                    <li key={card.id}>
-                        {card.name}
-                        <ul>
-                            {card.answers &&
-                                card.answers.map((answer) => (
-                                    <li key={answer.id}>{answer.value}</li>
-                                ))}
-                        </ul>
-                        <ul>
+                    <li key={card.id} className="mb-4">
+                        <div>{card.name}</div>
+                        <h3 className="font-semibold">Clues:</h3>
+                        <ul className="list-disc pl-8">
                             {card.clues &&
                                 card.clues.map((clue) => (
                                     <li key={clue.id}>{clue.value}</li>
+                                ))}
+                        </ul>
+                        <h3 className="font-semibold">Answers:</h3>
+                        <ul className="list-disc pl-8">
+                            {card.answers &&
+                                card.answers.map((answer) => (
+                                    <li key={answer.id}>{answer.value}</li>
                                 ))}
                         </ul>
                     </li>
