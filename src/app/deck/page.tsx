@@ -11,7 +11,10 @@ interface Deck {
 
 const DeckPage = () => {
     const searchParams = useSearchParams();
+
     const deckId = searchParams.get("deckId") as string | null;
+    const spaceId = searchParams.get("spaceId") as string | null;
+
     const [deck, setDeck] = useState<Deck | null>(null);
 
     useEffect(() => {
@@ -51,7 +54,7 @@ const DeckPage = () => {
     return (
         <div>
             <h1>{deck.name}</h1>
-            <CardForm deckId={deck.id} />
+            <CardForm deckId={deck.id} spaceId={parseInt(spaceId as string)} />
         </div>
     );
 };
