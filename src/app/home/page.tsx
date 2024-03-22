@@ -28,7 +28,9 @@ const HomePage: React.FC = () => {
  return (
     <div className="flex">
 
-      <Sidebar />
+      <Sidebar onClose={function (): void {
+       throw new Error('Function not implemented.');
+     } } />
 
       <div className="flex flex-col flex-1">
 
