@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Flashcard } from "@/components/atoms";
 
 interface Card {
     id: number;
@@ -132,27 +133,19 @@ const CardForm: React.FC<CardFormProps> = ({ deckId, spaceId }) => {
             </button>
 
             <h2 className="mt-8 mb-4 text-lg font-bold">Cards:</h2>
-            <ul>
+            {/* Display created cards */}
+            <div className="flex flex-wrap">
                 {cards.map((card) => (
-                    <li key={card.id} className="mb-4">
-                        <div>{card.name}</div>
-                        <h3 className="font-semibold">Clues:</h3>
-                        <ul className="list-disc pl-8">
-                            {card.clues &&
-                                card.clues.map((clue) => (
-                                    <li key={clue.id}>{clue.value}</li>
-                                ))}
-                        </ul>
-                        <h3 className="font-semibold">Answers:</h3>
-                        <ul className="list-disc pl-8">
-                            {card.answers &&
-                                card.answers.map((answer) => (
-                                    <li key={answer.id}>{answer.value}</li>
-                                ))}
-                        </ul>
-                    </li>
+                    <div key={card.id} className="w-1/3 p-4">
+                        {card.clues[0] && card.answers[0] && (
+                            <Flashcard
+                                clue={card.clues[0].value}
+                                answer={card.answers[0].value}
+                            />
+                        )}
+                    </div>
                 ))}
-            </ul>
+            </div>
         </div>
     );
 };

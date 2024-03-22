@@ -1,30 +1,23 @@
-"use client"; // This is a client component
+"use client";
 import React, { useState } from "react";
 
-interface FlashcardProps {
-    clue: string;
-    answer: string;
-}
-
-const Flashcard: React.FC<FlashcardProps> = ({ clue, answer }) => {
+const HomeCard: React.FC = () => {
     const [isFlipped, setFlipped] = useState(false);
 
     const handleFlip = () => {
         setFlipped(!isFlipped);
     };
 
+
     return (
-        <div className="flex items-center">
-            <div
-                className={`card w-60 h-80 cursor-pointer  ${
-                    isFlipped ? "flipped" : ""
-                }`}
-            >
+        <div className="flex items-center justify-center mt-28">
+            <div className={`card w-60 h-80 cursor-pointer  ${isFlipped ? "flipped" : ""}`}>
                 <div className="front absolute w-full h-full flex items-center justify-center shadow-md">
-                    <p>{clue}</p>
+
+                    <p>Front Side</p>
                 </div>
                 <div className="back absolute w-full h-full  flex items-center justify-center shadow-md">
-                    <p>{answer}</p>
+                    <p>Back Side</p>
                 </div>
             </div>
             <button
@@ -37,4 +30,4 @@ const Flashcard: React.FC<FlashcardProps> = ({ clue, answer }) => {
     );
 };
 
-export default Flashcard;
+export default HomeCard;
