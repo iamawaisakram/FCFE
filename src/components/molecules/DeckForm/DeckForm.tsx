@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Link from "next/link";
 
 interface Deck {
     id: number;
@@ -89,7 +90,14 @@ const DeckForm: React.FC<DeckFormProps> = ({ spaceId }) => {
             <h2>Decks:</h2>
             <ul>
                 {decks.map((deck) => (
-                    <li key={deck.id}>{deck.name}</li>
+                    <li key={deck.id}>
+                        <Link
+                            href={`/deck?deckId=${deck.id}`}
+                            className="text-black hover:text-blue-500"
+                        >
+                            {deck.name}
+                        </Link>
+                    </li>
                 ))}
             </ul>
         </div>
