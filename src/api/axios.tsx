@@ -2,6 +2,7 @@
 import axios, { AxiosInstance } from 'axios';
 
 interface AuthResponse {
+  token: any;
   access_token: string;
 }
 
@@ -18,7 +19,13 @@ const authService = {
   login: async (email: string, password: string): Promise<string> => {
     try {
       const response = await instance.post<AuthResponse>('/auth/login', { email, password });
-      return response.data.access_token;
+      const token = response.data.token; // Update this line to match the correct property name
+      // Set the Authorization header for subsequent requests
+      instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      // Store the token in local storage
+      localStorage.setItem('token', token);
+      console.log('Login successful! Token:', token);
+      return token;
     } catch (error: any) {
       const errorMessage = (error.response?.data as ErrorResponse)?.message || 'An error occurred during login';
       throw errorMessage;
@@ -28,10 +35,41 @@ const authService = {
   signup: async (email: string, password: string): Promise<string> => {
     try {
       const response = await instance.post<AuthResponse>('/auth/signup', { email, password });
-      return response.data.access_token;
+      const token = response.data.token; // Update this line to match the correct property name
+      // Set the Authorization header for subsequent requests
+      instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      // Store the token in local storage
+      localStorage.setItem('token', token);
+      console.log('Signup successful! Token:', token);
+      return token;
     } catch (error: any) {
       const errorMessage = (error.response?.data as ErrorResponse)?.message || 'An error occurred during signup';
       throw errorMessage;
+    }
+  },
+
+  logout: (): void => {
+
+    delete instance.defaults.headers.common['Authorization'];
+    localStorage.removeItem('token');
+    console.log('Logout successful!');
+  },
+
+  checkAuthentication: async (): Promise<void> => {
+    try {
+
+      const token = localStorage.getItem('token');
+
+      if (!token) {
+        throw new Error('User not authenticated');
+      }
+
+      instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      await instance.get('/auth/check-auth'); // Replace with the actual endpoint to check authentication
+
+    } catch (error: any) {
+
+      throw new Error('User not authenticated');
     }
   },
 };

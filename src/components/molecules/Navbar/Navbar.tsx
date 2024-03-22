@@ -1,9 +1,21 @@
 "use client"; // This is a client component
 import React from 'react';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import authService from '@/api/axios';
 
 
 const Navbar: React.FC = () => {
+
+   const router = useRouter();
+   const handleLogout = () => {
+    // Call the logout function from authService
+    authService.logout();
+
+    // Redirect the user to the login page after logout
+    router.push('/login');
+  };
+
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -155,14 +167,15 @@ const Navbar: React.FC = () => {
             Settings
           </a>
           <a
-            href="/login"
-            className="block px-4 py-2 text-sm text-gray-700"
-            role="menuitem"
-            tabIndex={-1}
-            id="user-menu-item-2"
-          >
-            Sign out
-          </a>
+        href="/login"
+        className="block px-4 py-2 text-sm text-gray-700"
+        role="menuitem"
+        tabIndex={-1}
+        id="user-menu-item-2"
+        onClick={handleLogout} // Call the handleLogout function on click
+      >
+        Sign out
+      </a>
         </div>
       )}
 
@@ -179,26 +192,26 @@ const Navbar: React.FC = () => {
             className="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium"
             aria-current="page"
           >
-            Dashboard
+            Spaces
           </a>
           <a
             href="#"
             className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
           >
-            Team
+            Categories
           </a>
           <a
             href="#"
             className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
           >
-            Projects
+            Create Cards
           </a>
-          <a
+          {/* <a
             href="#"
             className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
           >
             Calendar
-          </a>
+          </a> */}
         </div>
       </div>
     </nav>
